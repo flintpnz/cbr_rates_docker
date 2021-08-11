@@ -1,0 +1,48 @@
+networks:
+  backend:
+
+services:
+    webserver:
+        image: 'nginx:alpine'
+        container_name: cbr_rates_nginx
+        working_dir: /application
+        volumes:
+            - './cbr_rates:/application'
+            - './nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
+        depends_on:
+            - php-fpm
+            - mysql
+        ports:
+            - '35000:80'
+        networks:
+            - backend
+
+    mysql:
+        image: 'mysql:5.7'
+        container_name: cbr_rates_mysql
+        restart: unless-stopped
+        working_dir: /application
+        volumes:
+            - './cbr_rates:/application'
+            - './mysql:/dump'
+        environment:
+            - MYSQL_ROOT_PASSWORD=
+            - MYSQL_DATABASE=
+            - MYSQL_USER=
+            - MYSQL_PASSWORD=
+        ports:
+            - '35001:3306'
+        security_opt:
+            - seccomp:unconfined
+        networks:
+            - backend
+
+    php-fpm:
+        container_name: cbr_rates_php
+        build: php-fpm
+        working_dir: /application
+        volumes:
+            - './cbr_rates:/application'
+            - './php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini'
+        networks:
+            - backend
