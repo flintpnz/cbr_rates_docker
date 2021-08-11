@@ -14,8 +14,8 @@ git clone https://github.com/flintpnz/cbr_rates_docker.git
 ```
 4. В docker-compose.yml по желанию изменить порт 35000 на желаемый (строка 16)
 ```bash
-```
 - '35000:80'
+```
 5. Склонировать репозиторий Symfony в директорию cbr_rates_docker
 ```bash
 cd cbr_rates_docker
