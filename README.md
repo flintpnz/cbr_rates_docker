@@ -12,7 +12,7 @@ git clone https://github.com/flintpnz/cbr_rates_docker.git
 - MYSQL_USER=
 - MYSQL_PASSWORD=
 ```
-4. В docker-compose.yml по желанию изменить порт 35000 на желаемый (строка 16)
+4. В docker-compose.yml по желанию изменить порт 35000 на свой (строка 16)
 ```bash
 - '35000:80'
 ```
